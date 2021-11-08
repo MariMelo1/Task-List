@@ -7,3 +7,43 @@ form .error {
   color: #f00;
   margin: 3px 0 4px;
 }
+
+.cardLogin {
+  margin-left: 250px;
+  border-radius: 30px;
+}
+.cardForm {
+  background-color: #e6d1c9;
+}
+.card-top {
+  text-align: center;
+  color: #0a1a3b;
+}
+#button {
+  background-color: #0a1a3b;
+  color: #e6d1c9;
+  margin-top: 10px;
+}
+.nav-item {
+  color: #0a1a3b;
+}
+#btn-Irlogin {
+  margin-left: 50px;
+  margin-top: 10px;
+  color: #0a1a3b;
+}
+
+.text-tarefaP {
+  color: #e6d1c9;
+  text-align: center;
+}
+.text-tarefaT {
+  color: #0a1a3b;
+  text-align: center;
+}
+.card-tarefaP {
+  background-color: #0a1a3b;
+}
+.card-tarefaT {
+  background-color: #e6d1c9;
+}

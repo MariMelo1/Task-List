@@ -8,6 +8,8 @@ import Home from "screens/home";
 import AddTarefas from "screens/AddTarefas";
 import Tarefas from "screens/Tarefas";
 import Perfil from "screens/Perfil";
+import Cadastro from "screens/Cadastro";
+import Login from "screens/Login";
 
 function App() {
   return (
@@ -18,7 +20,9 @@ function App() {
           <Route path="/AddTarefas" component={AddTarefas} />
           <Route path="/Tarefas" component={Tarefas} />
           <Route path="/Perfil" component={Perfil} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Cadastro} />
+          <Route path="/Home" component={Home} />
+          <Route path="/Login" component={Login} />
         </Switch>
       </main>
     </BrowserRouter>
