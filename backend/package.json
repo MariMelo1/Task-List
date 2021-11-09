@@ -1,0 +1,22 @@
+{
+  "name": "Task-List",
+  "version": "1.0.0",
+  "description": "Backend do organizador de tarefas (Topicos Especiais)",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config app.js",
+    "db:create": "sequelize-cli db:create"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.3.0"
+  }
+}
