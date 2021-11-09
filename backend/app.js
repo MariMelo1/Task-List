@@ -6,6 +6,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const taskRoutes = require("./routes/tasks");
+taskRoutes(app);
+
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`listening at http://localhost:${port}`)
 })
