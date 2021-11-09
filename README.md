@@ -10,6 +10,9 @@ Victor Thales
 Criação de um sistema de Organização Pessoal da disciplina de Tópicos Especiais do curso de Engenharia da Computação do Centro Universitário UniSatc.
 
 # Liguagem
-
+Frontend:
 JavaScript com a biblioteca React, utilizando Creat React App.
+
+Backend:
+Nodejs, Sequlize e Postgresql
 
