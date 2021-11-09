@@ -20,8 +20,6 @@ exports.findOne = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  console.log('req: ',req)
-  console.log('req.body: ', req.body)
   const newTask = await Task.create(req.body);
   res.json(newTask);
 };
