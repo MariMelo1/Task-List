@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     message: DataTypes.STRING,
     UserId: DataTypes.INTEGER,
-    CategorieId: DataTypes.INTEGER
+    CategorieId: DataTypes.INTEGER,
+    status: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Task',

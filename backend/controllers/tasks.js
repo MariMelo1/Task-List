@@ -1,7 +1,12 @@
 const {Task} = require("../models");
 
-exports.listAll = async (req, res) => {
-  const tasks = await Task.findAll();
+exports.listByUserId = async (req, res) => {
+  const { id } = req.params;
+  const tasks = await Task.findOne({
+    where: {
+      UserId: id,
+    }
+  });
   res.json(tasks);
 };
 
@@ -34,6 +39,18 @@ exports.update = async (req, res) => {
   });
   res.json({ success: !!updateTask });
 };
+
+exports.updateStatus = async (req, res) => {
+  const { id } = req.params;
+  const {status} = req.body
+  const updateTask = await Task.update({status}, {
+    where: {
+      id,
+    },
+  });
+  res.json({ success: !!updateTask });
+};
+
 
 exports.delete = async (req, res) => {
   const { id } = req.params;
