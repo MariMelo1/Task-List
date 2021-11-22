@@ -9,8 +9,11 @@ app.get('/', (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 const taskRoutes = require("./routes/tasks");
+const authRoutes = require("./routes/auth")
 taskRoutes(app);
+authRoutes(app);
 
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
