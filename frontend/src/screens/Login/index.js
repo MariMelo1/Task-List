@@ -5,26 +5,23 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import {
-  Button,
   Card,
-  CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupText,
-  InputGroup,
-  Row,
   Col,
 } from "reactstrap";
 
+import { useAuth } from "context/AuthContext";
+import { useHistory } from "react-router";
+import { CircularProgress } from "material-ui";
 //import logoTask from "../public/logoTask.png";
 
 export default function Login() {
+  const { login, isLoginLoading } = useAuth();
+  let history = useHistory();
+  
   const validationSchema = Yup.object({
-    titulo: Yup.string()
-      .min(5, "Seu titulo precisa ter pelo menos 2 letras")
-      .required("Campo obrigatório"),
+    email: Yup.string().email("E-mail inválido").required("Campo obrigatório"),
+    password: Yup.string().required("Campo obrigatório"),
   });
 
   const formik = useFormik({
@@ -33,9 +30,14 @@ export default function Login() {
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      // envio do form...
-      console.log(`envia estes dados para o servidor`, values);
+    onSubmit: async (values) => {
+      console.log('submit')
+      try {
+        await login(values.email, values.password);
+        history.replace("/");
+      } catch (err) {
+        alert(err.message);
+      }
     },
   });
 
@@ -51,6 +53,8 @@ export default function Login() {
                   <h2 className="display-4">Login</h2>
                   <p style={{ color: "#0a1a3b" }}>Faça seu login abaixo:</p>
                 </div>
+                {isLoginLoading ? <CircularProgress /> :
+                <>
                 <div className="form-group mb-3">
                   <label htmlFor="email" style={{ color: "#0a1a3b" }}>
                     E-mail
@@ -89,6 +93,8 @@ export default function Login() {
                     Login
                   </button>
                 </div>
+                </>
+                }
               </form>
             </Fragment>
           </CardBody>

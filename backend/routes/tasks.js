@@ -1,10 +1,11 @@
 const tasks = require("../controllers/tasks");
+const {authMiddleware} = require("../utils/authMiddleware");
 
 module.exports = function (app) {
-  app.get("/tasks/user/:id", tasks.listByUserId);
-  app.get("/tasks/:id", tasks.findOne);
-  app.post("/tasks", tasks.create);
-  app.put("/tasks/:id", tasks.update);
-  app.delete("/tasks/:id", tasks.delete);
-  app.put("/task/status/:id", tasks.updateStatus)
+  app.get("/tasks/user/:id",authMiddleware, tasks.listByUserId);
+  app.get("/tasks/:id",authMiddleware, tasks.findOne);
+  app.post("/tasks",authMiddleware,tasks.create);
+  app.put("/tasks/:id",authMiddleware, tasks.update);
+  app.delete("/tasks/:id",authMiddleware, tasks.delete);
+  app.put("/task/status/:id",authMiddleware, tasks.updateStatus)
 };

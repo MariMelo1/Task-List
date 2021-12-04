@@ -1,28 +1,35 @@
 import "./App.css";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import Header from "components/Header";
+import { useUsuario } from "context/UserContext";
 
-import Home from "screens/home";
-import AddTarefas from "screens/AddTarefas";
-import Tarefas from "screens/Tarefas";
-import Perfil from "screens/Perfil";
-import Cadastro from "screens/Cadastro";
-import Login from "screens/Login";
+import AuthRouter from "routes/AuthRouter";
+import AppRouter from "routes/AppRouter";
+
 
 function App() {
+  const  isLogged  = useUsuario();
   return (
     <BrowserRouter>
-      <Header />
       <main id="content" role="main" className="container">
         <Switch>
-          <Route path="/AddTarefas" component={AddTarefas} />
-          <Route path="/Tarefas" component={Tarefas} />
-          <Route path="/Perfil" component={Perfil} />
-          <Route exact path="/" component={Cadastro} />
-          <Route path="/Home" component={Home} />
-          <Route path="/Login" component={Login} />
+        <Route path="/auth" component={AuthRouter} />
+          <Route
+            path="/"
+            render={props =>
+              isLogged ? (
+                <AppRouter {...props} />
+              ) : (
+                <Redirect
+                  to={{
+                    pathname: "/auth/login",
+                    state: { from: props.location },
+                  }}
+                />
+              )
+            }
+          />
         </Switch>
       </main>
     </BrowserRouter>
