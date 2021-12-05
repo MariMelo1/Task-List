@@ -5,6 +5,7 @@ const UsuarioContext = React.createContext();
 
 function UsuarioProvider(props) {
   const { data } = useAuth();
+  
   const isLogged = !!data && !!data?.usuario && !!data?.token;
 
   return <UsuarioContext.Provider value={{ isLogged, usuario: data?.usuario, token: data?.token }} {...props} />;

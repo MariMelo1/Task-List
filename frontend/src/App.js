@@ -9,12 +9,13 @@ import AppRouter from "routes/AppRouter";
 
 
 function App() {
-  const  isLogged  = useUsuario();
+  const { isLogged } = useUsuario();
+  console.log('isLo: ', isLogged)
   return (
     <BrowserRouter>
       <main id="content" role="main" className="container">
         <Switch>
-        <Route path="/auth" component={AuthRouter} />
+          <Route path="/auth" component={AuthRouter} />
           <Route
             path="/"
             render={props =>

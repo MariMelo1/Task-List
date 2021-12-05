@@ -1,9 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useAuth } from "context/AuthContext";
+import { useUsuario } from "context/UserContext";
 
 import { Card, CardBody, Col } from "reactstrap";
 /*import logoTask from "./public/logoTask.png";*/
 
 export default function Tarefas() {
+ const user = useUsuario() 
+ const auth = useAuth()
+ console.log('user:', user)
   return (
     <>
       <Col className="cardLogin" lg="5" md="7">
@@ -12,11 +17,22 @@ export default function Tarefas() {
             <div className="card-top">
               <h6 className="text-tarefa">Tarefa</h6>
               <h2 className="display-4">Meu Perfil</h2>
-              <p>Nome</p>
-              <p>Email</p>
-              <p>Senha</p>
+              <br/>
+              <div style={{textAlign:'left'}}>
+                  <p>{`Nome: ${user.usuario.name}`}</p>
+                  <p>{`E-mail: ${user.usuario.email}`}</p>
+              </div>
               {/* <img class="imglogo" src={logoTask} alt=""></img> */}
             </div>
+            <div className="d-grid gap-2">
+                  <button
+                    className="btn btn-secondary"
+                    id="button"
+                    onClick={()=> auth.logout()}
+                  >
+                    Logout
+                  </button>
+                </div>
           </CardBody>
         </Card>
       </Col>

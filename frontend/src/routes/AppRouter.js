@@ -9,13 +9,13 @@ import Cadastro from "screens/Cadastro";
 import Header from "components/Header";
 
 
-export default function AppRouter() {
+export default function AppRouter(props) {
   return (
     <>
       <Header />
       <Route path="/AddTarefas" component={AddTarefas} />
           <Route path="/Tarefas" component={Tarefas} />
-          <Route path="/Perfil" component={Perfil} />
+          <Route path="/Perfil" component={Perfil} props={props}/>
           <Route exact path="/" component={Home} />
           <Route path="/Cadastro" component={Cadastro} />
     </>

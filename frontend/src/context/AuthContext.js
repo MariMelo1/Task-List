@@ -49,19 +49,18 @@ function setToken(token = null) {
         if (!!responseData?.error) {
           throw new Error(responseData?.error);
         }
-  
+      
         const usuarioData = {
-          usuario: responseData.usuario,
-          token: responseData.token,
+          usuario: responseData.data.user,
+          token: responseData.data.token,
         };
-  
         setData(usuarioData);
         setToken(usuarioData.token);
         persistLoginInStorage(usuarioData);
       } catch (err) {
         // se der erro ~ podemos forçar um logout para garantir que ninguém sobrará logado
         logout();
-  
+        console.log('erro: ')
         throw new Error(err.message || "Não foi possível efetuar seu login no momento");
       } finally {
         setIsLoadingLoading(false);

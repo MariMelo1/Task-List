@@ -8,6 +8,5 @@ let config = {
 }
 
 export function auth(data) {
-    console.log(data)
-    return axios.post(`${REACT_APP_API_URL}/login`, JSON.stringfy(data), config)
+    return axios.post(`${REACT_APP_API_URL}/login`, JSON.stringify(data), config)
 }
