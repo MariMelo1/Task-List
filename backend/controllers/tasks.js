@@ -2,7 +2,7 @@ const {Task} = require("../models");
 
 exports.listByUserId = async (req, res) => {
   const { id } = req.params;
-  const tasks = await Task.findOne({
+  const tasks = await Task.findAll({
     where: {
       UserId: id,
     }

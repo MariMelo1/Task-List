@@ -5,8 +5,11 @@ import * as Yup from "yup";
 import { Card, CardBody, Col } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { createTask } from "services/task";
+import { useUsuario } from "context/UserContext";
 
 export default function AddTarefas() {
+  const user = useUsuario() 
   const validationSchema = Yup.object({
     titulo: Yup.string()
       .min(5, "Seu titulo precisa ter pelo menos 2 letras")
@@ -20,10 +23,15 @@ export default function AddTarefas() {
       mensagem: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      // envio do form...
-      console.log(`envia estes dados para o servidor`, values);
-    },
+    onSubmit: async (values) => {
+        try {
+          console.log('values: ', values)
+          await createTask({...values, user});
+          window.location.reload()
+        } catch (err) {
+          alert(err.message);
+        }
+      }
   });
 
   return (
@@ -91,7 +99,7 @@ export default function AddTarefas() {
                   </button>
                 </div>
               </form>
-              <pre>{JSON.stringify(formik.values, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(formik.values, null, 2)}</pre> */}
             </Fragment>
           </CardBody>
         </Card>
