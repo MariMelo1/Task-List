@@ -32,6 +32,7 @@ export default function Home() {
     <>
      <Grid container spacing={2}>
      <Grid item xs={12}>
+     <p style={{fontWeight:'bold'}}>Tarefas recentes:</p>
         <Grid container justifyContent="left" spacing={2}>
           
         {tasks.length ? tasks.map(task => {
