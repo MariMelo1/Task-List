@@ -28,9 +28,10 @@ export default function AddTarefas() {
         try {
           console.log('values: ', values)
           await createTask({...values, user});
+          alert("Tarefa adicionada com sucesso.");
           history.push('/tasks')
         } catch (err) {
-          alert(err.message);
+          alert("Erro ao adicionar a tarefa.");
         }
       }
   });

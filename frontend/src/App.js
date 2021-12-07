@@ -6,6 +6,7 @@ import { useUsuario } from "context/UserContext";
 
 import AuthRouter from "routes/AuthRouter";
 import AppRouter from "routes/AppRouter";
+import Cadastro from "screens/Cadastro";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <main id="content" role="main" className="container">
         <Switch>
           <Route path="/auth" component={AuthRouter} />
+          <Route exact path="/create-account" component={Cadastro} />
           <Route
             path="/"
             render={props =>

@@ -1,10 +1,23 @@
 const {Task} = require("../models");
-
+const { Op } = require("sequelize");
 exports.listByUserId = async (req, res) => {
   const { id } = req.params;
   const tasks = await Task.findAll({
     where: {
       UserId: id,
+    }
+  });
+  res.json(tasks);
+};
+
+exports.listByUserIdAndDate = async (req, res) => {
+  const { id } = req.params;
+  const tasks = await Task.findAll({
+    where: {
+      UserId: id,
+      createdAt: {
+        [Op.between]: [new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()-3),new Date()],
+      }
     }
   });
   res.json(tasks);

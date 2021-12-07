@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     const {name, email, password } = req.body;
-
+  console.log('name: ', req.body)
     try {
         User.create({
             name,

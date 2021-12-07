@@ -7,7 +7,6 @@ export default function AuthRouter({ match }) {
   return (
     <>
       <Route exact path={`${match.url}/login`} component={Login} />
-      <Route exact path="/create-account" component={Cadastro} />
       <Route
         exact
         path={match.url}

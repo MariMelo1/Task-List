@@ -24,9 +24,8 @@ export default function EditTarefas(props) {
     setLoad(true);
     try {
       const { data } = await getOneTask(id);
-      console.log(data)
       formik.setFieldValue("titulo", data.title);
-      formik.setFieldValue("categoria", data.categorie);
+      formik.setFieldValue("categoria",  data.CategorieId === 1 ? "Pessoal" : "Trabalho");
       formik.setFieldValue("mensagem", data.message);
       formik.setFieldValue("status", data.status);
       setTask(data);

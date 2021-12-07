@@ -30,6 +30,9 @@ export default function Header() {
     <header>
       <nav className="navbar navbar-expand-md navbar-light bg-light fixed-top">
         <div className="container">
+        <a className="navbar-brand">
+            TaskList  |
+          </a>
           <a className="navbar-brand" href="/">
             Home
           </a>

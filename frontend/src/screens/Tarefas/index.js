@@ -33,10 +33,10 @@ export default function Tarefas() {
      <Grid container spacing={2}>
      <Grid item xs={12}>
         <Grid container justifyContent="left" spacing={2}>
-        {tasks.map(task => {
+        {tasks.length ? tasks.map(task => {
           return (
             <TaskConmponent props={task}/>
-        )})}
+        )}) : <p>Nenhuma tarefa a ser exibida</p> }
          </Grid>
         </Grid>
      </Grid>

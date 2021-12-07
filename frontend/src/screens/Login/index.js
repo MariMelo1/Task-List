@@ -90,6 +90,14 @@ export default function Login() {
                       >
                         Login
                       </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary "
+                        id="button"
+                        onClick={()=> history.push('/create-account')}
+                      >
+                        Cadastrar-se
+                      </button>
                     </div>
                   </>
                 }
