@@ -1,31 +1,31 @@
 import { Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Card, CardBody, Col } from "reactstrap";
-
+import { Card, CardBody } from "reactstrap";
 export default function TaskConmponent({ props }) {
-    const { status, message } = props
+    const { status, message, id } = props
+
     if (status) {
         return (
             <Grid item>
-                <Link to={'/edit-task'}>
-                    <Card className="bg-secondary shadow border-0  ">
-                        <CardBody className={`px-lg-5 py-lg-5 card-tarefaP`}>
+                <Card className="bg-secondary shadow border-0  ">
+                    <CardBody className={`px-lg-5 py-lg-5 card-tarefaP`}>
+                        <Link to={`/edit-task/${id}`}>
                             <h6 className="text-tarefaP">{message}</h6>
-                        </CardBody>
-                    </Card>
-                </Link>
+                        </Link>
+                    </CardBody>
+                </Card>
             </Grid>
         )
     } else {
         return (
             <Grid item>
-                <Link to={'/edit-task'}>
-                    <Card className="bg-secondary shadow border-0  ">
-                        <CardBody className={`px-lg-5 py-lg-5 card-tarefaT`}>
+                <Card className="bg-secondary shadow border-0  ">
+                    <CardBody className={`px-lg-5 py-lg-5 card-tarefaT`}>
+                        <Link to={`/edit-task/${id}`}>
                             <h6 className="text-tarefaT">{message}</h6>
-                        </CardBody>
-                    </Card>
-                </Link>
+                        </Link>
+                    </CardBody>
+                </Card>
             </Grid>
         )
     }

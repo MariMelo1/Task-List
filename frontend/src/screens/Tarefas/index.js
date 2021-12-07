@@ -10,6 +10,7 @@ export default function Tarefas() {
   const { usuario } = useUsuario()
   const [load, setLoad] = useState(false)
   const [tasks, setTasks] = useState([])
+  
   async function listTasks() {
     setLoad(true);
     try {

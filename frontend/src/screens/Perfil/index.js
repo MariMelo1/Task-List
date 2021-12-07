@@ -15,8 +15,7 @@ export default function Tarefas() {
         <Card className="bg-secondary shadow border-0 ">
           <CardBody className="px-lg-5 py-lg-5 cardForm">
             <div className="card-top">
-              <h6 className="text-tarefa">Tarefa</h6>
-              <h2 className="display-4">Meu Perfil</h2>
+              <h2 className="display-4">Perfil</h2>
               <br/>
               <div style={{textAlign:'left'}}>
                   <p>{`Nome: ${user.usuario.name}`}</p>

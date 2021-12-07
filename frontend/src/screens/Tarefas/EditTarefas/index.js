@@ -1,37 +1,67 @@
-import { Fragment } from "react";
-import { useFormik } from "formik";
+import { Fragment, useEffect, useState} from "react";
+import { Field, useFormik } from "formik";
 import * as Yup from "yup";
 
 import { Card, CardBody, Col } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createTask } from "services/task";
-import { useUsuario } from "context/UserContext";
+import { getOneTask, updateTask } from "services/task";
 
-export default function EditTarefas() {
-  const user = useUsuario() 
+
+export default function EditTarefas(props) {
+  const id = props.match.params.id
+  const [load, setLoad] = useState(false)
+  const [task, setTask] = useState([])
+
   const validationSchema = Yup.object({
     titulo: Yup.string()
       .min(5, "Seu titulo precisa ter pelo menos 2 letras")
       .required("Campo obrigatório"),
   });
 
+  async function getTask() {
+    setLoad(true);
+    try {
+      const { data } = await getOneTask(id);
+      console.log(data)
+      formik.setFieldValue("titulo",data.title);
+      formik.setFieldValue("categoria",data.categorie);
+      formik.setFieldValue("mensagem",data.message);
+      formik.setFieldValue("status",data.status);
+      setTask(data);
+    } catch (err) {
+      alert("Não foi possível carregar as suas tarefas.");
+    } finally {
+      setLoad(false);
+    }
+  }
+
+  const setFormikValues = () => {
+   
+  }
+
+  useEffect(()=>{
+    getTask()
+    setFormikValues()
+  },[])
+
   const formik = useFormik({
     initialValues: {
-      titulo: "",
-      categoria: "",
-      mensagem: "",
+      titulo: task.title,
+      categoria: task.categorie,
+      mensagem: task.message,
+      status: task.status
     },
     validationSchema,
     onSubmit: async (values) => {
-        try {
-          console.log('values: ', values)
-          await createTask({...values, user});
-          window.location.reload()
-        } catch (err) {
-          alert(err.message);
-        }
+      try {
+        console.log('values: ', values , id)
+        await updateTask({ ...values, id });
+        window.location.reload()
+      } catch (err) {
+        alert(err.message);
       }
+    }
   });
 
   return (
@@ -50,9 +80,8 @@ export default function EditTarefas() {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${
-                      !!formik.errors.titulo && "is-invalid"
-                    }`}
+                    className={`form-control ${!!formik.errors.titulo && "is-invalid"
+                      }`}
                     id="titulo"
                     value={formik.values.titulo}
                     onChange={formik.handleChange}
@@ -88,13 +117,19 @@ export default function EditTarefas() {
                     onChange={formik.handleChange}
                   />
                 </div>
+                <div id="checkbox-group">Checked</div>
+              <div role="group" aria-labelledby="checkbox-group">
+            <label>
+              <input type="checkbox" name="status" checked={formik.values.status} onChange={formik.handleChange}/>
+            </label>
+          </div>
                 <div className="d-grid gap-2">
                   <button
                     type="submit"
                     className="btn btn-secondary"
                     id="button"
                   >
-                    Cadastrar tarefa
+                    Salvar
                   </button>
                 </div>
               </form>

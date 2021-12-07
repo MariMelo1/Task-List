@@ -18,6 +18,21 @@ export function createTask(data) {
     return api.post(`/tasks`, obj, config)
 }
 
+export function updateTask(data) {
+    console.log('data: ', data)
+    const obj = {
+        title: data.titulo,
+        status: data.status,
+        message: data.mensagem,
+        CategorieId: 1, // mudar pra trazer categoria
+    }
+    return api.put(`/tasks/${data.id}`, obj, config)
+}
+
 export function getTasks(userId) {
     return api.get(`/tasks/user/${userId}`, config)
+}
+
+export function getOneTask(id) {
+    return api.get(`/tasks/${id}`, config)
 }

@@ -15,7 +15,7 @@ export default function AppRouter(props) {
     <>
       <Header />
           <Route path="/AddTarefas" component={AddTarefas} />
-          <Route path="/edit-task" component={EditTarefas} />
+          <Route path="/edit-task/:id" component={EditTarefas} />
           <Route path="/Tarefas" component={Tarefas} />
           <Route path="/Perfil" component={Perfil} props={props}/>
           <Route exact path="/" component={Home} />
