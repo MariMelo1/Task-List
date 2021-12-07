@@ -6,17 +6,17 @@ function Menu() {
     <div className="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link to="/Tarefas" className="nav-link">
+          <Link to="/tasks" className="nav-link">
             Tarefas
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/AddTarefas" className="nav-link">
+          <Link to="/task/add" className="nav-link">
             Adicionar Tarefas
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/Perfil" className="nav-link">
+          <Link to="/profile" className="nav-link">
             Perfil
           </Link>
         </li>

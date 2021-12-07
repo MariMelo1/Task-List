@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useHistory } from "react-router";
 import { Card, CardBody, Col } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +10,7 @@ import { useUsuario } from "context/UserContext";
 
 export default function AddTarefas() {
   const user = useUsuario() 
+  const history = useHistory()
   const validationSchema = Yup.object({
     titulo: Yup.string()
       .min(5, "Seu titulo precisa ter pelo menos 2 letras")
@@ -27,7 +28,7 @@ export default function AddTarefas() {
         try {
           console.log('values: ', values)
           await createTask({...values, user});
-          window.location.reload()
+          history.push('/tasks')
         } catch (err) {
           alert(err.message);
         }

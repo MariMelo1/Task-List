@@ -10,7 +10,7 @@ export function createTask(data) {
     console.log('data: ', data)
     const obj = {
         title: data.titulo,
-        status: true,
+        status: false,
         message: data.mensagem,
         UserId: data.user.usuario.id,
         CategorieId: 1, // mudar pra trazer categoria
@@ -35,4 +35,8 @@ export function getTasks(userId) {
 
 export function getOneTask(id) {
     return api.get(`/tasks/${id}`, config)
+}
+
+export function deleteTask(id) {
+    return api.delete(`/tasks/${id}`, config)
 }

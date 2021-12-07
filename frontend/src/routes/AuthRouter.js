@@ -1,11 +1,13 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+import Cadastro from "screens/Cadastro";
 import Login from "screens/Login";
 
 export default function AuthRouter({ match }) {
   return (
     <>
       <Route exact path={`${match.url}/login`} component={Login} />
+      <Route exact path="/create-account" component={Cadastro} />
       <Route
         exact
         path={match.url}

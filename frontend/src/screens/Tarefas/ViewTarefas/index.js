@@ -1,18 +1,19 @@
-import { Fragment, useEffect, useState} from "react";
-import { Field, useFormik } from "formik";
+import { Fragment, useEffect, useState } from "react";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useHistory } from "react-router";
 import { Card, CardBody, Col } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getOneTask, updateTask } from "services/task";
+import { deleteTask, getOneTask, updateTask } from "services/task";
 
 
 export default function EditTarefas(props) {
   const id = props.match.params.id
   const [load, setLoad] = useState(false)
-  const [task, setTask] = useState([])
-
+  const [edit, setEdit] = useState(false)
+  const [task, setTask] = useState({})
+  const history = useHistory()
   const validationSchema = Yup.object({
     titulo: Yup.string()
       .min(5, "Seu titulo precisa ter pelo menos 2 letras")
@@ -24,10 +25,10 @@ export default function EditTarefas(props) {
     try {
       const { data } = await getOneTask(id);
       console.log(data)
-      formik.setFieldValue("titulo",data.title);
-      formik.setFieldValue("categoria",data.categorie);
-      formik.setFieldValue("mensagem",data.message);
-      formik.setFieldValue("status",data.status);
+      formik.setFieldValue("titulo", data.title);
+      formik.setFieldValue("categoria", data.categorie);
+      formik.setFieldValue("mensagem", data.message);
+      formik.setFieldValue("status", data.status);
       setTask(data);
     } catch (err) {
       alert("Não foi possível carregar as suas tarefas.");
@@ -37,13 +38,13 @@ export default function EditTarefas(props) {
   }
 
   const setFormikValues = () => {
-   
+
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getTask()
     setFormikValues()
-  },[])
+  }, [])
 
   const formik = useFormik({
     initialValues: {
@@ -55,14 +56,26 @@ export default function EditTarefas(props) {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        console.log('values: ', values , id)
+        console.log('values: ', values, id)
         await updateTask({ ...values, id });
-        window.location.reload()
+        history.push('/tasks')
       } catch (err) {
         alert(err.message);
       }
     }
   });
+
+  async function deleteTaskId() {
+    if (window.confirm("Você realmente deseja excluir a tarefa?")) {
+      try {
+        await deleteTask(id);
+        alert("Tarefa deletada com sucesso.");
+        history.push('/tasks')
+      } catch (err) {
+        alert("Não foi possível excluir este registro no momento.");
+      }
+    }
+  }
 
   return (
     <>
@@ -71,7 +84,7 @@ export default function EditTarefas(props) {
           <CardBody className="px-lg-5 py-lg-5 cardForm">
             <Fragment>
               <div className="card-top">
-                <h2 className="display-4">Editar Tarefa</h2>
+                <h2 className="display-4">{edit ? 'Edição' : 'Tarefa'}</h2>
               </div>
               <form className="mb-5" onSubmit={formik.handleSubmit} noValidate>
                 <div className="form-group mb-3">
@@ -79,6 +92,7 @@ export default function EditTarefas(props) {
                     Título{" "}
                   </label>
                   <input
+                    disabled={!edit}
                     type="text"
                     className={`form-control ${!!formik.errors.titulo && "is-invalid"
                       }`}
@@ -95,10 +109,11 @@ export default function EditTarefas(props) {
                     Categoria
                   </label>
                   <select
+                    onChange={formik.handleChange}
+                    disabled={!edit}
                     id="categoria"
                     className="form-control"
                     value={formik.values.categoria}
-                    onChange={formik.handleChange}
                   >
                     <option value="">Selecione uma opção</option>
                     <option value="Pessoal">Pessoal</option>
@@ -110,19 +125,21 @@ export default function EditTarefas(props) {
                     Mensagem
                   </label>
                   <textarea
+                    onChange={formik.handleChange}
+                    disabled={!edit}
                     className="form-control"
                     rows="3"
                     id="mensagem"
                     value={formik.values.mensagem}
-                    onChange={formik.handleChange}
                   />
                 </div>
-                <div id="checkbox-group">Checked</div>
-              <div role="group" aria-labelledby="checkbox-group">
-            <label>
-              <input type="checkbox" name="status" checked={formik.values.status} onChange={formik.handleChange}/>
-            </label>
-          </div>
+                <div className="form-group mb-3">
+                  <label style={{ color: 'Black', marginRight: '30px' }} class="form-check-label" for="flexCheckDefault">
+                    Status
+                  </label>
+                  <input  disabled={!edit} class="form-check-input" name={'status'} type="checkbox" value="" id="flexCheckDefault" checked={formik.values.status} onClick={formik.handleChange} />
+
+                </div>
                 <div className="d-grid gap-2">
                   <button
                     type="submit"
@@ -131,9 +148,34 @@ export default function EditTarefas(props) {
                   >
                     Salvar
                   </button>
+
                 </div>
               </form>
-              {/* <pre>{JSON.stringify(formik.values, null, 2)}</pre> */}
+              <button
+                className="btn btn-secondary"
+                id="button"
+                onClick={() => setEdit(true)}
+              >
+                Editar
+              </button>
+             
+                  <button
+                    style={{ marginLeft: '20px'}}
+                    onClick={() => setEdit(false)}
+                    className="btn btn-secondary"
+                    id="button"
+                  >
+                    Cancelar
+                  </button>
+
+             
+              <button 
+              onClick={()=> deleteTaskId()}
+              type="button" 
+              class="btn btn-danger" 
+              style={{ fontSize: '15px', marginLeft: '20px', marginTop: '10px' }}>
+                Excluir
+              </button>
             </Fragment>
           </CardBody>
         </Card>
