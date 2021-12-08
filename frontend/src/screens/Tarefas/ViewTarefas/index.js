@@ -139,6 +139,7 @@ export default function EditTarefas(props) {
                   <input  disabled={!edit} class="form-check-input" name={'status'} type="checkbox" value="" id="flexCheckDefault" checked={formik.values.status} onClick={formik.handleChange} />
 
                 </div>
+                {edit ?
                 <div className="d-grid gap-2">
                   <button
                     type="submit"
@@ -149,7 +150,19 @@ export default function EditTarefas(props) {
                   </button>
 
                 </div>
+                :   <div className="d-grid gap-2">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  id="button"
+                  onClick={()=> history.push('/tasks')}
+                >
+                  Voltar
+                </button>
+
+              </div>}
               </form>
+              {!edit ?
               <button
                 className="btn btn-secondary"
                 id="button"
@@ -157,7 +170,8 @@ export default function EditTarefas(props) {
               >
                 Editar
               </button>
-             
+             : null}
+                {edit ?
                   <button
                     style={{ marginLeft: '20px'}}
                     onClick={() => setEdit(false)}
@@ -166,8 +180,7 @@ export default function EditTarefas(props) {
                   >
                     Cancelar
                   </button>
-
-             
+                 : null}
               <button 
               onClick={()=> deleteTaskId()}
               type="button" 
